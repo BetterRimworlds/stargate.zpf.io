@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Stargate>
+  <originalTimelineTicks>20250071</originalTimelineTicks>
+  <relationships />
+  <things>
+    <li Class="ThingWithComps">
+      <def>AIPersonaCore</def>
+      <id>AIPersonaCore678608</id>
+      <pos>(107, 0, 100)</pos>
+      <health>100</health>
+      <stackCount>1</stackCount>
+      <questTags IsNull="True" />
+    </li>
+  </things>
+</Stargate>
