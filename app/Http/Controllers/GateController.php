@@ -24,6 +24,22 @@ class GateController extends \Illuminate\Routing\Controller
         file_put_contents("$path/$filename", $file->get());
     }
 
+    private function doesGateExist(string $gateAddress): bool
+    {
+        $path = storage_path('gates');
+        $registeredGatePath = "$path/registered/$gateAddress.txt";
+
+        return (file_exists($registeredGatePath));
+    }
+
+    public function ping(string $gateAddress): Response
+    {
+        if ($this->doesGateExist($gateAddress)) {
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return new Response(null, Response::HTTP_NOT_FOUND);
+    }
 
     public function register(): Response
     {
@@ -35,9 +51,7 @@ class GateController extends \Illuminate\Routing\Controller
 
     public function transmit(Request $request, string $gateAddress): Response
     {
-        $path = storage_path('gates');
-        $registeredGatePath = "$path/registered/$gateAddress.txt";
-        if (!file_exists($registeredGatePath)) {
+        if (!$this->doesGateExist($gateAddress)) {
             return new Response("No stargate is registered at this address.", Response::HTTP_NOT_FOUND);
         }
 

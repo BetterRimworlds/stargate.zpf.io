@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/gate/', [GateController::class, 'register']);
+Route::get('/gate/{address}', [GateController::class, 'ping']);
 Route::post('/gate/{address}', [GateController::class, 'transmit']);
 Route::delete('/gate/{address}', [GateController::class, 'receive']);
 
