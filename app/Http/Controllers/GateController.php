@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Filesystem\FileExistsException;
+use App\Exceptions\FileExistsException;
+use App\Models\Stargate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use SplFileInfo;
 
 class GateController extends \Illuminate\Routing\Controller
@@ -14,7 +14,7 @@ class GateController extends \Illuminate\Routing\Controller
     /**
      * @throws FileExistsException
      */
-    private function UploadFile(UploadedFile $file, string $filename, $disk = 'public')
+    private function UploadFile(UploadedFile $file, string $filename, $disk = 'public'): void
     {
         $path = storage_path('gates');
         if (file_exists("$path/$filename")) {
@@ -24,15 +24,30 @@ class GateController extends \Illuminate\Routing\Controller
         file_put_contents("$path/$filename", $file->get());
     }
 
-    public function transmit(Request $request, string $address)
+
+    public function register(): Response
     {
+        // Regenerate addresses until we find one that doesn't exist (probable) or is older than 30 days.
+        $gateAddress = Stargate::registerStargate();
+
+        return new Response($gateAddress);
+    }
+
+    public function transmit(Request $request, string $gateAddress): Response
+    {
+        $path = storage_path('gates');
+        $registeredGatePath = "$path/registered/$gateAddress.txt";
+        if (!file_exists($registeredGatePath)) {
+            return new Response("No stargate is registered at this address.", Response::HTTP_NOT_FOUND);
+        }
+
         $gateBuffer = $request->file('gateBuffer');
         if (!$gateBuffer) {
             return new Response('Missing Stargate contents.', Response::HTTP_BAD_REQUEST);
         }
 
         try {
-            $this->UploadFile($gateBuffer, $address . ".xml");
+            $this->UploadFile($gateBuffer, $gateAddress . ".xml");
 
             return new Response(null, Response::HTTP_NO_CONTENT);
         } catch (\Throwable $e) {
