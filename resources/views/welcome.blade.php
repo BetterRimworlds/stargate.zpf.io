@@ -14,6 +14,10 @@
         for more information!
     </p>
     <p>
+        This works with the Rimworld Stargate mod:<br/>
+        <a href="https://github.com/BetterRimworlds/Rimworld-Stargate" target="_blank"><strong>https://github.com/BetterRimworlds/Rimworld-Stargate</strong></a>
+    </p>
+    <p>
         Here is a list of known Stargates. You can register your own below.
     </p>
     <div id="known_gates">
