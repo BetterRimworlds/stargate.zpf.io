@@ -13,16 +13,18 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
      * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('home');
+        $gateAddresses = json_decode(file_get_contents(storage_path('gates') . '/known.json'));
+
+        return view('welcome', [
+            'gateAddresses' => $gateAddresses,
+        ]);
     }
 }

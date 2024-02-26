@@ -93,6 +93,17 @@ class GateController extends \Illuminate\Routing\Controller
             'Content-Disposition' => 'inline;filename=' . $address . '.xml',
         ])->deleteFileAfterSend();
     }
+
+    public function publish(string $address)
+    {
+        try {
+            Stargate::publish($address);
+        } catch (\Throwable $e) {
+            return new Response("Stargate was not published: " . $e->getMessage(), Response::HTTP_NOT_FOUND);
+        }
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
 }
 
 

@@ -19,6 +19,7 @@ Route::get('/gate/{address}', [GateController::class, 'ping']);
 Route::post('/gate/{address}', [GateController::class, 'transmit']);
 Route::delete('/gate/{address}', [GateController::class, 'receive']);
 
+Route::post('/known-gates/{address}', [GateController::class, 'publish']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

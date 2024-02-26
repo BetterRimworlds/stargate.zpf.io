@@ -8,12 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel QuickStart Project</title>
+    <title>Better Rimworlds Stargate Network</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/bootstrap-grid.min.css"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -83,8 +80,5 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Include the JS files here for maximum page performance. -->
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
