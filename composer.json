@@ -13,11 +13,11 @@
         "laravel/ui": "*"
     },
     "require-dev": {
-        "filp/whoops": "*",
         "fakerphp/faker": "*",
+        "filp/whoops": "*",
         "mockery/mockery": "*",
         "nunomaduro/collision": "*",
-        "phpexperts/dockerize": "*",
+        "phpexperts/dockerize": "14.*",
         "phpunit/phpunit": "^9.0"
     },
     "config": {
